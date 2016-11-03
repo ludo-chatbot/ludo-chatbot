@@ -4,6 +4,7 @@ var link_dict = {'Golden West Brewery': 'https://www.eventbrite.com/e/brewery-to
  'Spanish Cooking Class': 'https://www.eventbrite.com/e/spanish-cooking-class-in-berkeley-tickets-27416225669?aff=es2',
  'Holiday Cooking Boot Camp': 'https://www.eventbrite.com/e/holiday-boot-camp-cooking-class-in-berkeley-pies-and-tarts-tickets-27416504503?aff=ehomecard'}
 
+var justToSee = 'alabama';
 
 function bubbleCSV(id, file){
   var svg = d3.select(id),
@@ -41,20 +42,24 @@ function bubbleCSV(id, file){
         .attr("id", function(d) { return d.id; })
         .attr("r", function(d) { return 100; })
         .style("fill", function(d) { return color(d.package); })
+        .style("opacity", function(d) { return 0.5;})
         .on("click", function() {
           if (link_dict[d3.select(this).attr("id")]) {
             openInNewTab(link_dict[d3.select(this).attr("id")]);
-          }
-          var circ = d3.select(this); //just to make sure
-          var opac = circ.style('opacity');
-          circ.style.transition = "all 0.5s";
-          circ.style.WebKitTransition = "all 0.5s";
-          if (opac == 1) {
-            circ.style('opacity', 0.5);
-          } else if (opac == 0.5) {
-            circ.style('opacity', 1);
+          } else {
+            var circ = d3.select(this); //just to make sure
+            var opac = circ.style('opacity');
+            circ.style.transition = "all 0.5s";
+            circ.style.WebKitTransition = "all 0.5s";
+            if (opac == 1) {
+              circ.style('opacity', 0.5);
+            } else if (opac == 0.5) {
+              circ.style('opacity', 1);
+              circ.moveToFront();
+            }
           }
         });
+        // .on("mouseover", function() {alert("hey");});
     node.append("clipPath")
         .attr("id", function(d) { return "clip-" + d.id; })
       .append("use")
@@ -68,11 +73,13 @@ function bubbleCSV(id, file){
         .attr("x", 0)
         .attr("y", function(d, i, nodes) { return 13 + (i - nodes.length / 2 - 0.5) * 10; })
         .text(function(d) { return d; })
-        .attr("text-anchor", "middle")
-        .attr("display", "inline");
+        .attr("text-anchor", "middle");
 
     node.append("title")
-        .text(function(d) { return d.id + "\n" + format(d.value); });
+        .text(function(d) { return d.id + "\n" + format(d.value); })
+        .on("click", function(d) {
+        document.getElementById(d.id).click();
+      });
   });
 }
 
@@ -80,4 +87,3 @@ function openInNewTab(url) {
   var win = window.open(url, '_blank');
   win.focus();
 }
-

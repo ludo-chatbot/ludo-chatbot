@@ -20,6 +20,7 @@ h2 {
 }
 .intro {
   font-weight: 100;
+  font-family: 'Lato', sans-serif;
   width: 100%;
   float:left;
   height: 100px;
@@ -52,13 +53,18 @@ h2 {
   float: left;
   clear: left;
 }
-#for-populate {
+#for-question {
   background-color: #999;
-  background-opacity: 0.8;
+  background-opacity: 0.7;
   opacity: 0;
   min-height: 100px;
-  max-height: 60%;
-  padding-bottom: 20px;
+  max-height: 50%;
+  padding-bottom: 0px;
+}
+#for-input{
+  background-opacity: 0;
+  min-height: 0px;
+  max-height: 600px;
 }
 .form-group {
   width: 100%;
@@ -84,19 +90,20 @@ h2 {
   width: 10%;
   position:relative;
 }
-#im-game {
-  font-size: 36px;
-  text-align: center;
-  position:relative;
-  font-weight: 700;
+#submit-bubbles {
+  margin-top: 0px;
+  max-height: 50px;
 }
 svg {
+  font-size: 20px;
   display:block;
   margin:auto;
   color: white;
   font-weight: 100;
   margin-bottom: 0px;
 }
-#submit-bubbles {
-  margin-top: 0px;
+#loading {
+  display:block;
+  margin:auto;
+  margin-top: 80px;
 }
